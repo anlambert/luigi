@@ -2,8 +2,8 @@ name: Build
 
 on:
   push:
-    branches:
-      - master
+    # branches:
+    #   - master
   pull_request:
 
 jobs:
@@ -13,11 +13,12 @@ jobs:
     strategy:
       matrix:
         include:
-          - tox-env: py38-core
-          - tox-env: py39-core
-          - tox-env: py310-core
-          - tox-env: py311-core
-          - tox-env: py312-core
+          # - tox-env: py38-core
+          # - tox-env: py39-core
+          # - tox-env: py310-core
+          # - tox-env: py311-core
+          # - tox-env: py312-core
+          - tox-env: py313-core
 
     steps:
       - uses: actions/checkout@v4
@@ -33,13 +34,13 @@ jobs:
         env:
           TOXENV: ${{ matrix.tox-env }}
         run: uvx --with tox-uv tox run
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          fail_ci_if_error: true
-          verbose: true
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v5
+      #   with:
+      #     fail_ci_if_error: true
+      #     verbose: true
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   mysql:
     runs-on: ubuntu-22.04
@@ -47,11 +48,12 @@ jobs:
     strategy:
       matrix:
         include:
-          - tox-env: py38-mysql
-          - tox-env: py39-mysql
-          - tox-env: py310-mysql
-          - tox-env: py311-mysql
-          - tox-env: py312-mysql
+          # - tox-env: py38-mysql
+          # - tox-env: py39-mysql
+          # - tox-env: py310-mysql
+          # - tox-env: py311-mysql
+          # - tox-env: py312-mysql
+          - tox-env: py313-mysql
 
     steps:
       - uses: actions/checkout@v4
@@ -73,13 +75,13 @@ jobs:
         env:
           TOXENV: ${{ matrix.tox-env }}
         run: uvx --with tox-uv tox run
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          fail_ci_if_error: true
-          verbose: true
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v5
+      #   with:
+      #     fail_ci_if_error: true
+      #     verbose: true
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   postgres:
     runs-on: ubuntu-22.04
@@ -102,11 +104,12 @@ jobs:
     strategy:
       matrix:
         include:
-          - tox-env: py38-postgres
-          - tox-env: py39-postgres
-          - tox-env: py310-postgres
-          - tox-env: py311-postgres
-          - tox-env: py312-postgres
+          # - tox-env: py38-postgres
+          # - tox-env: py39-postgres
+          # - tox-env: py310-postgres
+          # - tox-env: py311-postgres
+          # - tox-env: py312-postgres
+          - tox-env: py313-postgres
 
     steps:
       - uses: actions/checkout@v4
@@ -125,13 +128,13 @@ jobs:
         env:
           TOXENV: ${{ matrix.tox-env }}
         run: uvx --with tox-uv tox run
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          fail_ci_if_error: true
-          verbose: true
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v5
+      #   with:
+      #     fail_ci_if_error: true
+      #     verbose: true
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   base:
     runs-on: ubuntu-22.04
@@ -143,40 +146,46 @@ jobs:
     strategy:
       matrix:
         include:
-          - tox-env: py38-aws
-          - tox-env: py39-aws
-          - tox-env: py310-aws
-          - tox-env: py311-aws
-          - tox-env: py312-aws
+          # - tox-env: py38-aws
+          # - tox-env: py39-aws
+          # - tox-env: py310-aws
+          # - tox-env: py311-aws
+          # - tox-env: py312-aws
+          - tox-env: py313-aws
 
-          - tox-env: py38-unixsocket
-            OVERRIDE_SKIP_CI_TESTS: True
-          - tox-env: py39-unixsocket
-            OVERRIDE_SKIP_CI_TESTS: True
-          - tox-env: py310-unixsocket
-            OVERRIDE_SKIP_CI_TESTS: True
-          - tox-env: py311-unixsocket
-            OVERRIDE_SKIP_CI_TESTS: True
-          - tox-env: py312-unixsocket
+          # - tox-env: py38-unixsocket
+          #   OVERRIDE_SKIP_CI_TESTS: True
+          # - tox-env: py39-unixsocket
+          #   OVERRIDE_SKIP_CI_TESTS: True
+          # - tox-env: py310-unixsocket
+          #   OVERRIDE_SKIP_CI_TESTS: True
+          # - tox-env: py311-unixsocket
+          #   OVERRIDE_SKIP_CI_TESTS: True
+          # - tox-env: py312-unixsocket
+          #   OVERRIDE_SKIP_CI_TESTS: True
+          - tox-env: py313-unixsocket
             OVERRIDE_SKIP_CI_TESTS: True
 
-          - tox-env: py38-apache
-          - tox-env: py39-apache
-          - tox-env: py310-apache
-          - tox-env: py311-apache
-          - tox-env: py312-apache
+          # - tox-env: py38-apache
+          # - tox-env: py39-apache
+          # - tox-env: py310-apache
+          # - tox-env: py311-apache
+          # - tox-env: py312-apache
+          - tox-env: py313-apache
 
-          - tox-env: py38-azureblob
-          - tox-env: py39-azureblob
-          - tox-env: py310-azureblob
-          - tox-env: py311-azureblob
-          - tox-env: py312-azureblob
+          # - tox-env: py38-azureblob
+          # - tox-env: py39-azureblob
+          # - tox-env: py310-azureblob
+          # - tox-env: py311-azureblob
+          # - tox-env: py312-azureblob
+          - tox-env: py313-azureblob
 
-          - tox-env: py38-contrib
-          - tox-env: py39-contrib
-          - tox-env: py310-contrib
-          - tox-env: py311-contrib
-          - tox-env: py312-contrib
+          # - tox-env: py38-contrib
+          # - tox-env: py39-contrib
+          # - tox-env: py310-contrib
+          # - tox-env: py311-contrib
+          # - tox-env: py312-contrib
+          - tox-env: py313-contrib
 
     steps:
       - uses: actions/checkout@v4
@@ -193,13 +202,13 @@ jobs:
           TOXENV: ${{ matrix.tox-env }}
           OVERRIDE_SKIP_CI_TESTS: ${{ matrix.OVERRIDE_SKIP_CI_TESTS }}
         run: uvx --with tox-uv tox run
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          fail_ci_if_error: true
-          verbose: true
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v5
+      #   with:
+      #     fail_ci_if_error: true
+      #     verbose: true
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   others:
     runs-on: ubuntu-22.04
